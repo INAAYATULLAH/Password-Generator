@@ -1,0 +1,2 @@
+The Password Generator, quite common nowadays, simply allows a user to choose their preference on a password to use instead of having to think or come up with a password themselves which can be a strain for the brain sometimes. 
+The Password Generator also allows the user to be aware of the strength of the password generated based on their preference in order to avoid the exploitation of the password vulnerability.
