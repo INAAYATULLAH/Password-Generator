@@ -1,0 +1,173 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title> Veegil Password Generator </title>
+  <style>
+    :root {
+      --bg: #2a0f1c;
+      --text: #f1f5f9;
+      --accent: #f83892;
+      --border: #334155;
+    }
+    body {
+      background: var(--bg);
+      color: var(--text);
+      font-family: Arial, sans-serif;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      height: 100vh;
+      margin: 0;
+    }
+    .container {
+      background: #3b1e2a;
+      padding: 30px;
+      border-radius: 16px;
+      box-shadow: 0 4px 20px rgba(0,0,0,0.3);
+      width: 350px;
+      text-align: center;
+    }
+    h1 {
+      margin-bottom: 20px;
+      color: var(--accent);
+    }
+    .row {
+      margin: 15px 0;
+      text-align: left;
+    }
+    label {
+      font-size: 15px;
+    }
+    .length-options {
+      display: flex;
+      gap: 10px;
+      flex-wrap: wrap;
+      margin-top: 8px;
+    }
+    .length-options label {
+      cursor: pointer;
+      border-radius: 12px;
+      overflow: hidden;
+    }
+    .length-options input[type="radio"] {
+      display: none;
+    }
+    .length-options span {
+      display: inline-block;
+      padding: 8px 14px;
+      border: 1px solid var(--border);
+      border-radius: 12px;
+      background: #200b18;
+      color: var(--text);
+      font-weight: 600;
+      transition: background 0.2s, border-color 0.2s, color 0.2s;
+    }
+    .length-options input[type="radio"]:checked + span {
+      background: var(--accent);
+      border-color: var(--accent);
+      color: black;
+    }
+    .options {
+      margin-top: 12px;
+    }
+    .options label {
+      display: block;
+      margin: 6px 0;
+    }
+    button {
+      margin-top: 20px;
+      padding: 12px 20px;
+      background: var(--accent);
+      color: black;
+      border: none;
+      border-radius: 10px;
+      font-size: 16px;
+      font-weight: bold;
+      cursor: pointer;
+      transition: background 0.2s;
+    }
+    button:hover {
+      background: hwb(335 5% 9%);
+    }
+    .result {
+      margin-top: 20px;
+      background: #200b0b;
+      padding: 12px;
+      border-radius: 10px;
+      font-size: 16px;
+      word-break: break-all;
+    }
+    .strength {
+      font-weight: bold;
+      margin-top: 10px;
+      padding: 8px 12px;
+      border-radius: 8px;
+      display: inline-block;
+    }
+    .strength.weak {
+      color: #fff;
+      background: #e63946; /* red */
+    }
+    .strength.moderate {
+      color: #000;
+      background: #ffb703; /* orange/yellow */
+    }
+    .strength.strong {
+      color: #fff;
+      background: hsl(110, 58%, 39%); /* green */
+    }
+  </style>
+</head>
+<body>
+  <div class="container">
+    <h2>Veegil Password Generator</h2>
+    <form method="POST">
+      <div class="row">
+        <label>Password Length:</label>
+        <div class="length-options">
+          <label>
+            <input type="radio" name="length" value="8">
+            <span>8</span>
+          </label>
+          <label>
+            <input type="radio" name="length" value="12" checked>
+            <span>12</span>
+          </label>
+          <label>
+            <input type="radio" name="length" value="16">
+            <span>16</span>
+          </label>
+          <label>
+            <input type="radio" name="length" value="20">
+            <span>20</span>
+          </label>
+          <label>
+            <input type="radio" name="length" value="24">
+            <span>24</span>
+          </label>
+        </div>
+      </div>
+
+      <div class="options">
+        <label><input type="checkbox" name="lowercase" checked> Include lowercase</label>
+        <label><input type="checkbox" name="uppercase" checked> Include uppercase</label>
+        <label><input type="checkbox" name="numbers" checked> Include numbers</label>
+        <label><input type="checkbox" name="symbols"> Include symbols</label>
+      </div>
+
+      <button type="submit">Generate Password</button>
+    </form>
+
+    {% if password %}
+  <div class="result">{{ password }}</div>
+{% endif %}
+
+{% if strength %}
+  <div class="strength {{ css_class }}">
+    {{ strength }}
+  </div>
+{% endif %}
+
+</body>
+</html>
