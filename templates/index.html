@@ -90,13 +90,32 @@
     button:hover {
       background: hwb(335 5% 9%);
     }
-    .result {
+    .result-container {
       margin-top: 20px;
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      justify-content: center;
+    }
+    .result {
       background: #200b0b;
       padding: 12px;
       border-radius: 10px;
       font-size: 16px;
       word-break: break-all;
+      flex: 1;
+    }
+    .copy-btn {
+      padding: 8px 12px;
+      background: var(--accent);
+      border: none;
+      border-radius: 8px;
+      cursor: pointer;
+      font-weight: bold;
+      color: black;
+    }
+    .copy-btn:hover {
+      background: hwb(335 5% 9%);
     }
     .strength {
       font-weight: bold;
@@ -107,15 +126,15 @@
     }
     .strength.weak {
       color: #fff;
-      background: #e63946; /* red */
+      background: #e63946;
     }
     .strength.moderate {
       color: #000;
-      background: #ffb703; /* orange/yellow */
+      background: #ffb703;
     }
     .strength.strong {
       color: #fff;
-      background: hsl(110, 58%, 39%); /* green */
+      background: hsl(110, 58%, 39%);
     }
   </style>
 </head>
@@ -126,26 +145,11 @@
       <div class="row">
         <label>Password Length:</label>
         <div class="length-options">
-          <label>
-            <input type="radio" name="length" value="8">
-            <span>8</span>
-          </label>
-          <label>
-            <input type="radio" name="length" value="12" checked>
-            <span>12</span>
-          </label>
-          <label>
-            <input type="radio" name="length" value="16">
-            <span>16</span>
-          </label>
-          <label>
-            <input type="radio" name="length" value="20">
-            <span>20</span>
-          </label>
-          <label>
-            <input type="radio" name="length" value="24">
-            <span>24</span>
-          </label>
+          <label><input type="radio" name="length" value="8"><span>8</span></label>
+          <label><input type="radio" name="length" value="12" checked><span>12</span></label>
+          <label><input type="radio" name="length" value="16"><span>16</span></label>
+          <label><input type="radio" name="length" value="20"><span>20</span></label>
+          <label><input type="radio" name="length" value="24"><span>24</span></label>
         </div>
       </div>
 
@@ -160,14 +164,26 @@
     </form>
 
     {% if password %}
-  <div class="result">{{ password }}</div>
-{% endif %}
+    <div class="result-container">
+      <div class="result" id="password-text">{{ password }}</div>
+      <button class="copy-btn" onclick="copyPassword()">Copy</button>
+    </div>
+    {% endif %}
 
-{% if strength %}
-  <div class="strength {{ css_class }}">
-    {{ strength }}
+    {% if strength %}
+    <div class="strength {{ css_class }}">
+      {{ strength }}
+    </div>
+    {% endif %}
   </div>
-{% endif %}
 
+  <script>
+    function copyPassword() {
+      const passwordText = document.getElementById("password-text").innerText;
+      navigator.clipboard.writeText(passwordText).then(() => {
+        alert("Password copied to clipboard!");
+      });
+    }
+  </script>
 </body>
 </html>
